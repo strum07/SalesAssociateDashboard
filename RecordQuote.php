@@ -6,9 +6,9 @@ Professor: Dr Raimund Ege
 Teaching Assistant: Neha Sunil Manghnani
 Group: Graduate 2 (G2)
 Contributors:	Eric Davis, z136652
-		Saga Sudhakar, z1783546
-		David Williams, z086126
-***********************************************/
+Saga Sudhakar, z1783546
+David Williams, z086126
+ ***********************************************/
 
 
 include 'SalesAssociateStore.php';
@@ -34,25 +34,8 @@ class RecordQuote{
         }
     }
 
-    public function verifyAssociate($username,$password){
-        $associate = $this->saStore->getAssociate($username);
-
-        if ($associate) {
-            // found username, now check password
-
-            $foundpassword = $this->saStore->getPassword($username);
-
-            if ($foundpassword === $password) {
-                // password matches
-                return $associate;
-            } else {
-                // password does not match
-                return false;
-            }
-        } else {
-            // admin not found
-            return false;
-        }
+    public function getAssociate($associate_id){
+        return $this->saStore->getAssociate($associate_id);
     }
 
     public function retrieveCustomers($name){
@@ -63,13 +46,13 @@ class RecordQuote{
         return $this->ldb->getCustomerInfo($id);
     }
 
-   public function showPendingQuotes(){
+    public function showPendingQuotes(){
         return $this->quoteStore->searchQuoteSTATUS('O');
     }
 
-   public function confirmEmail($quote){
-       return $this->quoteStore->updateEmail($quote);
-   }
+    public function confirmEmail($quote){
+        return $this->quoteStore->updateEmail($quote);
+    }
 
     public function confirmFinalize($quote){
         return $this->quoteStore->finalizeStatus($quote);
@@ -83,6 +66,9 @@ class RecordQuote{
         return $this->quoteStore->getQuote ($quote_id);
     }
 
+    public function lineitemsave($line){
+        return $this->ldb->updateLineItem($line);
+    }
 }
 
 
